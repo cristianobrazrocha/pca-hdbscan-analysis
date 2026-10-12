@@ -1,0 +1,15 @@
+input_type: csv
+output_dir: results
+overlay_prefix: vs_reference_pca_space
+features: [vibration, motor_current, temperature, acoustic]
+pca_components: 4
+min_cluster_fraction: 0.08
+cluster_ids: [0, 1, 2]
+reference: baseline
+systems:
+  - name: baseline
+    dir: data
+    files: [baseline.csv]
+  - name: changed
+    dir: data
+    files: [changed.csv]

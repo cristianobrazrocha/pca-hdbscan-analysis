@@ -1,0 +1,64 @@
+# ============================================================
+# Compare the conformational space occupied by several "systems"
+# in ONE shared PCA space.
+#
+# A "system" is whatever you are comparing. For example:
+#   - replicas of the same protein   (name: replica 1, replica 2, ...)
+#   - different pH values            (name: pH 5, pH 7, pH 9)
+#   - different temperatures         (name: 300 K, 350 K)
+#   - different concentrations       (name: 50 mM, 150 mM)
+#
+# Copy this file to config.yaml and edit it. config.yaml is git-ignored,
+# so your real paths never get committed.
+#
+#   cp config_example.yaml config.yaml
+#   python cluster_hdbscan.py config.yaml
+#   python plot_medoids.py    config.yaml
+# ============================================================
+
+output_dir: results        # everything is written here
+
+# Atoms to analyse (applied identically to every system -- every system MUST
+# end up with the same number of atoms in the same order).
+index_group: Protein       # a group present in each system's .ndx file
+atom_filter: CA            # "CA", "CA or CB", or "all"
+
+# Analysis knobs.
+pca_components: 10
+min_cluster_fraction: 0.001   # min cluster size = fraction x n_frames (min 5)
+cluster_ids: [0, 1]           # clusters shown in the summary comparison figure
+
+# Baseline to compare against: the superposition target and the grey
+# background cloud in the overlay plots. Defaults to the first system listed.
+reference: test
+
+# -------- one block per system --------------------------------------------
+# `dir` is an optional shared path prefix. topology, index and each trajectory
+# are joined onto it, so you only write the part that changes. List the
+# trajectories one per line -- if a system has several replicas you want
+# pooled together, list them all here; if you'd rather compare replicas as
+# separate systems, give each its own block instead.
+systems:
+
+  - name: test
+    dir: data        # this system's base folder
+    topology: example.gro
+    index: example_index.ndx
+    trajectories:
+      - example_traj.xtc
+
+# Optional per-system, if you don't want the whole trajectory:
+#   frame_interval: [0, 25001]   # raw zero-based [start, end), per trajectory
+#   stride: 2                    # keep raw frames 0, 2, 4... within interval
+#   outdir: reps_previous_name   # optional older results folder in output_dir
+
+# ============================================================
+# Example for CSV / Tabular Data (Instead of Trajectories)
+# ============================================================
+# input_type: csv
+# features: ["vibration", "motor_current", "temperature", "acoustic"]
+# systems:
+#   - name: baseline
+#     dir: data
+#     files:
+#       - baseline.csv

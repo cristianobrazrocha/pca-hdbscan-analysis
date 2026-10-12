@@ -1,0 +1,13 @@
+# Core scientific stack
+numpy
+scipy
+scikit-learn
+matplotlib
+tqdm
+pyyaml
+# Trajectory handling and clustering.
+# NOTE: mdtraj and hdbscan are easiest to install via conda:
+#   conda install -c conda-forge mdtraj hdbscan
+# They are listed here for completeness; pip installs can be fiddly.
+mdtraj
+hdbscan

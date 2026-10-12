@@ -1,0 +1,14 @@
+output_dir: results
+index_group: Protein
+atom_filter: CA
+pca_components: 10
+min_cluster_fraction: 0.001
+cluster_ids: [0, 1]
+reference: protein
+systems:
+  - name: protein
+    dir: data
+    topology: example.gro
+    index: example_index.ndx
+    trajectories:
+      - example_traj.xtc

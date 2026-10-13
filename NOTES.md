@@ -49,13 +49,13 @@ eigenvalue. This is unweighted Cartesian PCA: no per-system re-centering,
 atomic masses, or feature scaling is applied.
 
 HDBSCAN uses a **core distance** to express local sparseness. Informally,
-$\operatorname{core}_k(a)=d(a,N_k(a))$, the distance to the $k$th neighbor
+$\mathrm{core}_k(a)=d(a,N_k(a))$, the distance to the $k$th neighbor
 of $a$, where $k$ reflects `min_samples`. In retained PC space the ordinary
 distance is $d(a,b)=\lVert z_a-z_b\rVert_2$. The **mutual reachability**
 distance is
 
-$$d_{\mathrm{mreach},k}(a,b)=\max\{\operatorname{core}_k(a),
-\operatorname{core}_k(b),d(a,b)\}.$$
+$$d_{\mathrm{mreach},k}(a,b)=\max\{\mathrm{core}_k(a),
+\mathrm{core}_k(b),d(a,b)\}.$$
 
 The algorithm builds a minimum spanning tree from these distances and a
 hierarchy of density-connected groups. Small branches are pruned. With
@@ -73,12 +73,11 @@ package guide below explain the algorithm more fully.
 
 For a cluster $C$ with projected observations $z_i$, its sampled medoid is
 
-$$i^*=\underset{i\in C}{\operatorname{argmin}}\;
-\sum_{j\in C}\lVert z_i-z_j\rVert_2.$$
+$$i^*=\underset{i\in C}{\mathrm{arg\,min}}\;\sum_{j\in C}\lVert z_i-z_j\rVert_2.$$
 
 The table's occupancy for cluster label $c$ is
 
-$$\%C_c=100\,\frac{\#\{i:\text{label}_i=c\}}
+$$f_c=100\,\frac{n_c}{N}.$$
 {\#\{\text{all observations in that system}\}}.$$
 
 Noise remains in the denominator. `min_cluster_fraction` is this script's

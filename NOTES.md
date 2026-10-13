@@ -78,7 +78,6 @@ $$i^*=\underset{i\in C}{\mathrm{arg\,min}}\;\sum_{j\in C}\lVert z_i-z_j\rVert_2.
 The table's occupancy for cluster label $c$ is
 
 $$f_c=100\,\frac{n_c}{N}.$$
-{\#\{\text{all observations in that system}\}}.$$
 
 Noise remains in the denominator. `min_cluster_fraction` is this script's
 way to choose a minimum cluster size; it is not a universal parameter
